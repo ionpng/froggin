@@ -26,8 +26,9 @@
     }
   
     function frogginToText(froggin) {
-      let words = froggin.split(' ');  // Ensure correct space handling
-      return words.map(code => reversedMap[code] ?? code).join('').replace(/\|/g, ' ');
+      let words = froggin.trim().split(' ');  // Ensure spaces aren't lost
+      let decoded = words.map(code => reversedMap[code] ?? code).join('');
+      return decoded.replace(/\|/g, ' ');  // Restore spaces correctly
     }
   
     function translateToFroggin() {
