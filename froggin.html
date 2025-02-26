@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Froggin Translator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            resize: none;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Froggin Translator</h2>
+        <textarea id="inputText" rows="3" placeholder="Enter text..."></textarea>
+        <button onclick="translateToFroggin()">Translate to Froggin</button>
+        <textarea id="frogginText" rows="3" placeholder="Froggin output..."></textarea>
+        <button onclick="translateToText()">Translate to Text</button>
+    </div>
+
+    <script>
+        const frogginMap = {
+            'A': '🐸🐔', 'B': '🐔🐸', 'C': '🐸🐸', 'D': '🐔🐔',
+            'E': '🐷🦈', 'F': '🦈🐷', 'G': '🐷🐷', 'H': '🦈🦈',
+            'I': '🐸🐷', 'J': '🐔🦈', 'K': '🐸🦈', 'L': '🐔🐷',
+            'M': '🐷🐸', 'N': '🦈🐔', 'O': '🐷🦈🐸', 'P': '🦈🐸🐷',
+            'Q': '🐸🐔🐷', 'R': '🐔🐸🦈', 'S': '🐸🐔🦈', 'T': '🐔🐸🐷',
+            'U': '🦈🐷🐸', 'V': '🐷🦈🐔', 'W': '🐸🐷🐔', 'X': '🐔🦈🐷',
+            'Y': '🐷🐸🐔', 'Z': '🦈🐔🐸',
+            'a': '🐸🦒', 'b': '🐔🦒', 'c': '🐸🐸🦒', 'd': '🐔🐔🦒',
+            'e': '🐷🦈🦒', 'f': '🦈🐷🦒', 'g': '🐷🐷🦒', 'h': '🦈🦈🦒',
+            'i': '🐸🐷🦒', 'j': '🐔🦈🦒', 'k': '🐸🦈🦒', 'l': '🐔🐷🦒',
+            'm': '🐷🐸🦒', 'n': '🦈🐔🦒', 'o': '🐷🦈🐸🦒', 'p': '🦈🐸🐷🦒',
+            'q': '🐸🐔🐷🦒', 'r': '🐔🐸🦈🦒', 's': '🐸🐔🦈🦒', 't': '🐔🐸🐷🦒',
+            'u': '🦈🐷🐸🦒', 'v': '🐷🦈🐔🦒', 'w': '🐸🐷🐔🦒', 'x': '🐔🦈🐷🦒',
+            'y': '🐷🐸🐔🦒', 'z': '🦈🐔🐸🦒', ' ': '|', '.': '🐷🐷🦈'
+        };
+        
+        function textToFroggin(text) {
+            return text.split('').map(char => frogginMap[char] || char).join(' ');
+        }
+        
+        function frogginToText(froggin) {
+            let words = froggin.split(' ');
+            let reversedMap = Object.fromEntries(Object.entries(frogginMap).map(([k, v]) => [v, k]));
+            return words.map(code => reversedMap[code] || '?').join('').replace(/\|/g, ' ');
+        }
+        
+        function translateToFroggin() {
+            const text = document.getElementById('inputText').value;
+            document.getElementById('frogginText').value = textToFroggin(text);
+        }
+        
+        function translateToText() {
+            const froggin = document.getElementById('frogginText').value;
+            document.getElementById('inputText').value = frogginToText(froggin);
+        }
+    </script>
+</body>
+</html>
